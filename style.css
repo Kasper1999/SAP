@@ -63,9 +63,13 @@ nav table {
 
 nav table td {
 	padding: 10px 5px 10px 25%;
+}
+
+nav table td a {
 	word-spacing: 15px;
 	font-size: 12pt;
 	color: white;
+	font-weight: bold;
 }
 
 nav table td:hover, nav table td:focus, nav table td:active {
@@ -120,7 +124,7 @@ aside table td.content {
    text-overflow: ellipsis;
    display: -webkit-box;
    line-height: 16px;     /* fallback */
-   height: 20px;      /* fallback */
+   height: 16px;      /* fallback */
    -webkit-line-clamp: 1; /* number of lines to show */
    -webkit-box-orient: vertical;
    width: 100%;
@@ -141,13 +145,13 @@ aside table div.date{
 	width: 30%;
 }
 
+aside table div.priority {
+	padding-left: 10%;
+	width: 30%;
+}
+
 aside table div.status {
 	float: right;
 	width: 10%;
 }
 
-aside table td.close {
-	display: none;
-	padding-left: 10px;
-	width: 2%;
-}

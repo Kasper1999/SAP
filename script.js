@@ -8,13 +8,9 @@ const edit = document.getElementById('edit');
 
 const container = document.getElementById('container');
 
-const add_array = [];
-const id_array = [];
-const head_array = [];
-const date_array = [];
-const cont_array = [];
-const priority_array = [];
-let i = 0;
+const memory = [];
+
+var i = 0;
 
 function Add(){
 	const elem = document.createElement('aside');
@@ -45,12 +41,20 @@ function Add(){
     	break;
 	}
 
-	add_array.push('e'+i);
-	id_array.push(i);
-	head_array.push(head);
-	date_array.push(date);
-	cont_array.push(cont);
-	priority_array.push(priority);
+	function Add_el(i_e, head_e, date_e ,cont_e, priority_e) {
+		this.add_array = 'e'+i_e;
+		this.id_array = i_e;
+		this.head_array = head_e;
+		this.date_array = date_e;
+		this.cont_array = cont_e;
+		this.priority_array = priority_e;
+	}
+
+	memory[i] = new Add_el(i, head, date,cont, priority);
+
+	for(let k in memory[i]){
+		alert(k+':'+memory[i][k]);
+	}
 
 	elem.id = 'e'+ i;   
     elem.innerHTML = '<table>'+'<tr>' +'<td rowspan="2" class="ico">' +'<i class="fa fa-user-circle" aria-hidden="true">'+'</i>'+'</td>'+'<td class="all">'+'<div class="headline">'+head+'</div>' +'<div class="date">'+date+'</div>' +'<div class="priority">'+priority_c+'</div>'+'<div class="status">' +'<i class="fa fa-flag" aria-hidden="true">' +'</i>' +'</div>'+'</td>' +'</tr>'+'<tr>' +'<td colspan="3" class="content">'+cont+'</td>' +'</tr>' + '</table>';
@@ -63,18 +67,20 @@ function Add(){
 function Edit(){
 	let edit_elem = prompt('Enter title:');
 
-for (var i = 0; i < head_array.length; i++) {
-		if (edit_elem == head_array[i]) {
-	let s = id_array[i];
-
+for (let n = 0; n < memory.length; n++) {
+	alert(memory[n].head_array);
+		if (edit_elem == memory[n].head_array) {
+	let s = memory[n].id_array;
+	alert(memory[n].head_array+'  '+1);
 	let j = document.getElementById('e'+s);
 
-	let x = i;
-
-	let head = prompt('Specify a title:', head_array[x]);
-	let date = prompt('Specify the date in the format DD.MM.YYYY:', date_array[x]);
-	let cont = prompt('Content:', cont_array[x]);
-	let priority = prompt('Specify a priority from 1 to 3 (increasing priority):', priority_array[x]);
+	let x = n;
+	alert(memory[x].head_array+'  '+2);
+	let head = prompt('Specify a title:', memory[x].head_array);
+	alert(memory[n].head_array+3);
+	let date = prompt('Specify the date in the format DD.MM.YYYY:', memory[x].date_array);
+	let cont = prompt('Content:', memory[x].cont_array);
+	let priority = prompt('Specify a priority from 1 to 3 (increasing priority):', memory[x].priority_array);
 	let priority_c;
 
 	switch(priority){
@@ -98,11 +104,12 @@ for (var i = 0; i < head_array.length; i++) {
     	break;
 	}
 
-
-	head_array[x] = head;
-	date_array[x] = date;
-	cont_array[x] = cont;
-	priority_array[x] = priority;
+	memory[x] = {
+		head_array: head,
+		date_array: date,
+		cont_array: cont,
+		priority_array: priority
+	};
 
     j.innerHTML = '<table>'+'<tr>' +'<td rowspan="2" class="ico">' +'<i class="fa fa-user-circle" aria-hidden="true">'+'</i>'+'</td>'+'<td class="all">'+'<div class="headline">'+head+'</div>' +'<div class="date">'+date+'</div>' +'<div class="priority">'+priority_c+'</div>'+'<div class="status">' +'<i class="fa fa-flag" aria-hidden="true">' +'</i>' +'</div>'+'</td>' +'</tr>'+'<tr>' +'<td colspan="3" class="content">'+cont+'</td>' +'</tr>' + '</table>';
 	}
@@ -110,24 +117,19 @@ for (var i = 0; i < head_array.length; i++) {
 }
 
 function Delet(){
-	if (add_array.length == 0) {
+	if (memory.add_array.length == 0) {
 		var zzz = document.getElementById('block');
 		container.removeChild(zzz);
 	}
 
 	let delet_elem = prompt('Enter title:');
 
-	for (var i = 0; i < head_array.length; i++) {
-			if (delet_elem == head_array[i]) {
-		let s = id_array[i];
+	for (var i = 0; i < memory.head_array.length; i++) {
+			if (delet_elem == memory[i].head_array) {
+		let s = memory[i].id_array;
 		let j = document.getElementById('e'+s);
 
-		id_array.splice(s, 1);
-		add_array.splice(s, 1);
-		head_array.splice(s, 1);
-		date_array.splice(s, 1);
-		cont_array.splice(s, 1);
-		priority_array.splice(s, 1);
+		memory.splice(s, 1);
 
 		container.removeChild(j);
 		}
